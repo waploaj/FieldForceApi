@@ -33,5 +33,4 @@ def register_pos():
     else:
         return "Method is not allowed"
 
-
     return str( request.json["comment"])
