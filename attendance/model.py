@@ -1,6 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, TIMESTAMP,DECIMAL
 from app import db
+from  datetime import datetime
 
 Base = declarative_base()
 
@@ -8,8 +9,8 @@ class Attendance(db.Model):
     __tablename__ = 'attendance'
 
     id = db.Column(Integer, primary_key=True)
-    check_in = db.Column(db.TIMESTAMP)
-    check_out = db.Column(db.TIMESTAMP)
+    check_in = db.Column(db.DateTime, default=datetime.utcnow(), onupdate=datetime.utcnow())
+    check_out = db.Column(db.DateTime, default=datetime.utcnow(),onupdate=datetime.utcnow())
     employee_id = db.Column(db.Integer)
     customer_id = db.Column(db.Integer)
     latitude = db.Column(db.String(255))

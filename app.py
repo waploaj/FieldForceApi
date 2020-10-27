@@ -10,6 +10,8 @@ def create_app():
 
     with app.app_context():
         from attendance.attendance import attendance
+        from Posm.PosMaterial import pos
         app.register_blueprint(attendance)
+        app.register_blueprint(pos)
         db.create_all()
     return app

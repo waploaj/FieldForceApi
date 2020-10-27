@@ -1,8 +1,8 @@
 from flask import Blueprint, request, Response
 from .model import Attendance
 from app import db
-from app import create_app
-from werkzeug.exceptions import HTTPException
+import jsonify
+
 
 
 attendance = Blueprint('attendace', __name__)
@@ -22,6 +22,7 @@ def save_employee_attendance():
             if em:
                 db.session.add(em)
                 db.session.commit()
+                print("mambo poa")
             else:
                 return "Request  Body is missing"
         except Exception as e:
@@ -30,5 +31,38 @@ def save_employee_attendance():
     else:
         return Response(status=405)
 
-
     return Response(status=200)
+
+
+
+@attendance.route("/all", methods=["GET", "POST"])
+def get_all_attendance():
+    """
+
+    :return:
+    """
+    try:
+        employee = Attendance.query.all()
+    except Exception as e:
+        pass
+    return str(employee)
+
+
+@attendance.route("/employee", methods=["GET", "POST"])
+def get_by_employee_id():
+    """
+
+    :param employee_id:
+    :return:
+    """
+    if request.method == "POST":
+        try:
+            employee_data = Attendance(employee_id = request.json["employee_id"])
+        except Exception as e:
+            pass
+    else:
+        return Response(status=405)
+
+    return str(Attendance.query.filter(Attendance == employee_data))
+
+
