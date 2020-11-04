@@ -1,16 +1,17 @@
 from flask import Blueprint, request, Response
 from attendance.model import Attendance
+from attendance.serializer import AttendanceSerializer
 from app import db
 import jsonify
 from Utily.auth import token_required
-from attendance.serializer import AttendanceSerializer as schema
 
 
-sm = schema()
-attendance = Blueprint('attendace', __name__)
+
+sm = AttendanceSerializer()
+att = Blueprint('attendace', __name__)
 
 @token_required
-@attendance.route('/', methods=["GET", "POST"])
+@att.route('/', methods=["GET", "POST"])
 def save_employee_attendance():
 
     if request.method == "POST":
@@ -23,10 +24,8 @@ def save_employee_attendance():
        try:
 
             if em:
-                db.Session.add(em)
-                db.Session.commit()
-                print("mambo poa")
-                sm.dump(em)
+                db.session.add(em)
+                db.session.commit()
 
             else:
                 return "Request  Body is missing"
@@ -35,40 +34,49 @@ def save_employee_attendance():
 
     else:
         return Response(status=405)
-
     return Response(status=200)
 
 
 
-@attendance.route("/all", methods=["GET", "POST"])
+@att.route("/all", methods=["GET", "POST"])
 def get_all_attendance():
     """
 
     :return:
     """
-    try:
-        employee = Attendance.query.all()
-    except Exception as e:
-        pass
-    return sm.dump(employee)
+    if request.method  == "POST" or "GET":
+        try:
+            employee = Attendance().query.all()
+
+        except Exception as e:
+            pass
+
+        result =sm.dump(employee, many=True)
+        print(employee)
+    else:
+        return "Method not allowed",Response(405)
+    return str(result)
 
 
-@attendance.route("/employee", methods=["GET", "POST"])
+@att.route("/employee", methods=["GET", "POST"])
 def get_by_employee_id():
     """
 
     :param employee_id:
     :return:
     """
+    data = ""
     if request.method == "POST":
         try:
-            employee_data = Attendance(employee_id = request.json["employee_id"])
-            data = Attendance.query.filter(Attendance == employee_data)
+
+            data = Attendance.query.filter(Attendance.employee_id == request.json["employee_id"])
         except Exception as e:
             pass
-    else:
-        return Response(status=405)
+        if data:
+            result = sm.dump(data, many=True)
+        return str(result)
 
-    return sm.dump(data)
+
+
 
 

@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from functools import wraps
-from app import create_app as app
+from app import  app
 import jwt
 
 def token_required(f):
@@ -17,7 +17,7 @@ def token_required(f):
 
       try:
          data = jwt.decode(token, app.config["SECRET_KEY"])
-         # current_user = Users.query.filter_by(public_id=data['public_id']).first()
+         # current_user = Users.query.filter_by(person_id=request.json['person_id']).first()
       except:
          pass
 

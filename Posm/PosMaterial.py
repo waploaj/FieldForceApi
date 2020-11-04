@@ -17,13 +17,14 @@ def register_pos():
                                     latitude = request.json["latitude"],
                                     longitude = request.json["longitude"],
                                     employee_id = request.json["employee_id"],
-                                    # comment = request.json["comment"],
+                                    comments = request.json["comment"],
                                     muda =  request.json["muda"]
                                     )
 
             if posm_data:
                 db.session.add(posm_data)
-                db.session.commit
+                db.session.commit()
+                print("safi")
             else:
                 return "The request is empty!!"
 

@@ -1,9 +1,15 @@
 from app import ma
-from attendance.model import Attendance
+from attendance.attendance import Attendance
+from marshmallow import ValidationError
 
-class AttendanceSerializer(ma.Schema):
+
+class AttendanceSerializer(ma.SQLAlchemyAutoSchema):
     class Meta:
-
         model = Attendance
 
-        fields = ("check_in", "check_out", "latitude", "longitude")
+        def data_not_blank(self, data):
+            if not data:
+                raise ValidationError("Data not provide")
+
+
+
