@@ -18,8 +18,10 @@ ma = Marshmallow(app)
 with app.app_context():
     from attendance.attendance import att
     from Posm.PosMaterial import pos
+    from Competitor.competitorproduct import comp
     app.register_blueprint(att)
     app.register_blueprint(pos)
+    app.register_blueprint(comp)
 
 
 
