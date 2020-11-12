@@ -1,25 +1,26 @@
-from flask import jsonify, request
+from flask import jsonify , request
 from functools import wraps
-from app import  app
+from app import app
 import jwt
 
-def token_required(f):
-   @wraps(f)
-   def decorator(*args, **kwargs):
 
-      token = None
+def token_required ( f ) :
+    @wraps ( f )
+    def decorator ( *args , **kwargs ) :
 
-      if 'x-tokens' in request.headers:
-         token = request.headers['x-tokens']
+        token = None
 
-      if not token:
-         return jsonify({'message': 'a valid token is missing'})
+        if 'x-token' in request.headers :
+            token = request.headers [ 'x-token' ]
 
-      try:
-         data = jwt.decode(token, app.config["SECRET_KEY"])
-         # current_user = Users.query.filter_by(person_id=request.json['person_id']).first()
-      except:
-         pass
+        if not token :
+            return jsonify ( { 'message' : 'a valid token is missing' } )
 
-      return f("current_user", *args, **kwargs)
-   return decorator
+        try :
+            data = jwt.decode ( token , app.config [ "SECRET_KEY" ] )
+        except :
+            pass
+
+        return f ( *args , **kwargs )
+
+    return decorator

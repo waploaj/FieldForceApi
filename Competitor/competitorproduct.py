@@ -1,6 +1,5 @@
-from flask import Blueprint, request, Response
+from flask import Blueprint, request, jsonify
 from app import db
-from Utily.auth import token_required
 from .model import Competitor
 from Utily.auth import token_required
 from .serializer import CompetitorSerializer
@@ -23,7 +22,7 @@ def upload_competitor_data():
                                     comments= request.json["comments"]
 
             )
-            if competitor:
+            if sm.data_not_blank(competitor):
                 db.session.add(competitor)
                 db.session.commit()
                 print("okay")
@@ -31,9 +30,22 @@ def upload_competitor_data():
                 raise ValueError("Missing data")
         except Exception as e:
             pass
-        return Response(200)
+        return jsonify(200)
 
-@comp.
+@comp.route("/competitor_all", methods=["GET, POST"])
+def get_competitor_data():
+    """
+
+    """
+    if request.method == "POST":
+        try:
+         result = Competitor.query.all()
+
+        except Exception:
+            pass
+        results = sm.dump(result, many=True)
+    return results
+
 
 
 
