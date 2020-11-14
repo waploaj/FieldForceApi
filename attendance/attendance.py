@@ -8,8 +8,8 @@ sm = AttendanceSerializer ( )
 att = Blueprint ( 'attendace' , __name__ )
 
 
-@token_required
 @att.route ( '/' , methods = [ "GET" , "POST" ] )
+@token_required
 def save_employee_attendance ( ) :
     if request.method == "POST" :
         em = Attendance ( check_in = request.json [ 'check_in' ] ,
@@ -20,12 +20,10 @@ def save_employee_attendance ( ) :
                           employee_id = request.json [ "employee_id" ] )
         try :
 
-            if em :
+            if sm.data_not_blank(em) :
                 db.session.add ( em )
                 db.session.commit ( )
 
-            else :
-                return "Request  Body is missing"
         except Exception as e :
             print ( e )
 
@@ -55,13 +53,14 @@ def get_all_attendance ( ) :
 
 
 @att.route ( "/employee" , methods = [ "GET" , "POST" ] )
+@token_required
 def get_by_employee_id ( ) :
     """
 
     :param employee_id:
+
     :return:
     """
-    data = ""
     if request.method == "POST" :
         try :
 
