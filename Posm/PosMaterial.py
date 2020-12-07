@@ -1,4 +1,4 @@
-from flask import Blueprint, request, Response
+from flask import Blueprint, request, jsonify
 from app import db
 from .model import PosMaterial
 
@@ -17,8 +17,8 @@ def register_pos():
                                     latitude = request.json["latitude"],
                                     longitude = request.json["longitude"],
                                     employee_id = request.json["employee_id"],
-                                    comments = request.json["comment"],
-                                    muda =  request.json["muda"]
+                                    comments = request.json["comment"]
+
                                     )
 
             if posm_data:
@@ -28,10 +28,10 @@ def register_pos():
             else:
                 return "The request is empty!!"
 
-        except  Exception as e:
+        except Exception as e:
             print(e)
 
     else:
         return "Method is not allowed"
 
-    return str( request.json["comment"])
+    return jsonify(200)
