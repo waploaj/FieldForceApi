@@ -42,6 +42,9 @@ class PostMaterial_Item(db.Model):
     comments = db.Column(db.VARCHAR(255), default="", nullable=True)
     pos_id = db.Column(db.Integer, ForeignKey("postmaterial.id"))
 
+    def __repr__(self):
+        return "<PostMaterial_Item(id='%s')>"%(self.id)
+
 
 class Rating(db.Model):
     __tablename__ = "pos_ratings"
@@ -52,6 +55,9 @@ class Rating(db.Model):
     time = db.Column(db.DATETIME, default=datetime.utcnow(), onupdate=datetime.utcnow())
     deleted = db.Column(db.Interger, default="", nullable=True)
     rating_material = relationships("Rating_Material", backref="rate")
+
+    def __repr__(self):
+        return "<Rating(id='%s')>"%(self.id)
 
 
 class Rating_Material(db.Model):
@@ -64,3 +70,6 @@ class Rating_Material(db.Model):
     image = db.Column(db.String(255), default="", nullable=True)
     material_id = db.Column(db.Integer, ForeignKey("material.id"))
     rate_id = db.Column(db.Integer, ForeignKey("rate.id"))
+
+    def __repr__(self):
+        return "<Rating_Material(id='%s')>"%(self.id)
