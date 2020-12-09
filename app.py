@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from  flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow
+import logging
+from logging.config import fileConfig
 # import warnings
 # with warnings.catch_warnings():
 #     warnings.simplefilter("ignore")
@@ -13,7 +15,8 @@ app.config.from_object("Config.config")
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-
+fileConfig("logging.cfg")
+loggger = logging.getLogger((__name__))
 
 with app.app_context():
     from attendance.attendance import att
@@ -24,6 +27,3 @@ with app.app_context():
     app.register_blueprint(pos)
     app.register_blueprint(comp)
     app.register_blueprint(utilty)
-
-
-
