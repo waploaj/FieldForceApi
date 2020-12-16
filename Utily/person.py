@@ -1,29 +1,29 @@
-from app import app , db
+from app import app, db
 import jwt
 from Utily.UserModel import Userapi
-from flask import Blueprint , request , make_response , jsonify
+from flask import Blueprint, request, make_response, jsonify
 import datetime
 
-utilty = Blueprint ( "utilty" , __name__ )
+utilty = Blueprint("utilty", __name__)
 
 
-@utilty.route ( "/login" , methods = [ "GET" , "POST" ] )
-def auth_encoding ( ) :
-    try :
-        if request.method == "POST" :
-            person_id = request.args.get ( "person_id" )
-            if person_id :
+@utilty.route("/login", methods = ["GET", "POST"])
+def auth_encoding():
+    try:
+        if request.method == "POST":
+            person_id = request.args.get("person_id")
+            if person_id:
                 payload = {
-                    "exp" : datetime.datetime.utcnow ( ) + datetime.timedelta ( days = 1 ) ,
-                    "iat" : datetime.datetime.utcnow ( ) ,
-                    "sub" : person_id
+                    "exp": datetime.datetime.utcnow() + datetime.timedelta(days = 1),
+                    "iat": datetime.datetime.utcnow(),
+                    "sub": person_id
                 }
 
-                token: bytes = jwt.encode ( payload , app.config [ "SECRET_KEY" ] )
+                token = jwt.encode(payload, app.config["SECRET_KEY"])
 
-                return jsonify ( token.decode ( "UTF-8" ) )
+                return jsonify(token.decode("UTF-8"))
 
-            return make_response ( { "Message" : " Error on authenticate" } )
+            return make_response( { "Message" : " Error on authenticate" } )
 
         return make_response ( { "Messagge" : "Method not Allowed " } , 405 )
 
