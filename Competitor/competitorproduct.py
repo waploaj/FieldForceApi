@@ -6,7 +6,6 @@ from .serializer import *
 
 comp = Blueprint("comp", __name__ )
 
-
 #TODO: Add business logic Here.
 
 
