@@ -7,10 +7,8 @@ class AttendanceSerializer(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Attendance
 
-    def data_not_blank(self, data):
+    @staticmethod
+    def data_not_blank(data):
         if not data:
-            return  ValidationError("Data not provide")
+            return ValidationError("Data not provide")
         return True
-
-
-

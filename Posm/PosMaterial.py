@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app import db
-from .model import PosMaterial
+from .model import *
 
 
 pos = Blueprint("pos", __name__)
@@ -11,25 +10,22 @@ def register_pos():
 
     :return:
     """
+
     if request.method == "POST":
-        try:
-            posm_data = PosMaterial(item_id = request.json["item_id"],
-                                    latitude = request.json["latitude"],
-                                    longitude = request.json["longitude"],
-                                    employee_id = request.json["employee_id"],
-                                    comments = request.json["comment"]
-
-                                    )
-
-            if posm_data:
-                db.session.add(posm_data)
-                db.session.commit()
-                print("safi")
-            else:
-                return "The request is empty!!"
-
-        except Exception as e:
-            print(e)
+        for req in request.json:
+            registration = PosMaterial(customer_id = req["customer_id"],
+                                       employee_id = req["employee_id"]
+                                       )
+            if registration:
+                pass
+            registred_posm = PostMaterial_Item(item_id=req["item_id"],
+                                               latitude=req["latitude"],
+                                               longitude=req["longitude"],
+                                               comments=req["comments"],
+                                               pos_id=req["pos_id"]
+                                               )
+            if registred_posm:
+                pass
 
     else:
         return "Method is not allowed"
