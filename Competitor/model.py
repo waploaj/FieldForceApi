@@ -74,3 +74,20 @@ class Rating_Item(db.Model):
 
     def __repr__(self):
         return "<Rating_Item(id='%s')>" % (self.id)
+
+
+class CompetitorAttendance(db.Model):
+    __tablename__ = "Competitor_attendance"
+
+    id = db.Column(db.Interger, primary_key=True)
+    customer_id = db.Column(db.Integer, default="", nullable=False)
+    employee_id = db.Column(db.Integer, default="", nulllable=False)
+    latitude = db.Column(db.String(255), default="", nullable=False)
+    longitude = db.Column(db.String(255), default="", nullable=False)
+    time = db.Column(db.Datetime, default=datetime.utcnow(), onupdate=datetime.utcnow())
+
+    def __init__(self):
+        self.time = datetime.utcnow()
+
+    def __repr__(self):
+        return "<PostAttendance(id='%s')>" % (self.id)
