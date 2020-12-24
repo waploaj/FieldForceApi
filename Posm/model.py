@@ -12,7 +12,7 @@ class Material(db.Model):
     unit = db.Column(db.Integer,default="",nullable=True)
     deleted = db.Column(db.Integer, default="", nullable=True)
     free_product = db.Column(db.Integer, default="", nullable=True)
-    posm_item = relationships("PostMaterial_Item", backref="material")
+    posm_item = relationships("PosMaterial_Item", backref="material")
     rate_material = relationships("Rating_Material", backref="material")
 
 class PosMaterial(db.Model):
@@ -36,11 +36,11 @@ class PostMaterial_Item(db.Model):
     __tablename__  = "postmaterial_item"
 
     id = db.Column(db.Interger, primary_key=True)
-    item_id = db.Column(db.Integer, ForeignKey("material.id"))
-    latitude = db.Column(db.String(255), default="", nullable=True)
-    longitude = db.Column(db.String(255), default="", nullable=True)
-    comments = db.Column(db.VARCHAR(255), default="", nullable=True)
-    pos_id = db.Column(db.Integer, ForeignKey("postmaterial.id"))
+    item_id = db.Column(db.Integer, db.ForeignKey("material.id"), nullable=False)
+    latitude = db.Column(db.String(255), default="", nullable=False)
+    longitude = db.Column(db.String(255), default="", nullable=False)
+    comments = db.Column(db.VARCHAR(255), default="", nullable=False)
+    pos_id = db.Column(db.Integer, db.ForeignKey("postmaterial.id"), nullable=False)
 
     def __repr__(self):
         return "<PostMaterial_Item(id='%s')>"%(self.id)
@@ -68,8 +68,8 @@ class Rating_Material(db.Model):
     latitude = db.Column(db.String(255), default="", nullable=True)
     longitude = db.Column(db.String(255), default="", nullable=True)
     image = db.Column(db.String(255), default="", nullable=True)
-    material_id = db.Column(db.Integer, ForeignKey("material.id"))
-    rate_id = db.Column(db.Integer, ForeignKey("rate.id"))
+    material_id = db.Column(db.Integer, db.ForeignKey("material.id"))
+    rate_id = db.Column(db.Integer, db.ForeignKey("rate.id"), nullable=False)
 
     def __repr__(self):
         return "<Rating_Material(id='%s')>"%(self.id)

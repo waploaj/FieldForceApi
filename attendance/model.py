@@ -14,6 +14,6 @@ class Attendance(db.Model):
     longitude = db.Column(db.String(255), default="", nullable=True)
 
     def __repr__(self):
-        return "<Attendance(id = '%s' , check_in='%s', check_out='%s', employee_id='%s', customer_id='%s', latitude='%s', longitude='%s'>" %(
-           self.id, self.check_in, self.check_out, self.employee_id, self.customer_id, self.latitude, self.longitude
+        return "<Attendance(id = '%s' )>" %(
+           self.id
         )

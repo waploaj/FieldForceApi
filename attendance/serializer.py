@@ -1,5 +1,5 @@
 from app import ma
-from attendance.attendance import Attendance
+from attendance.model import Attendance
 from marshmallow import ValidationError
 
 

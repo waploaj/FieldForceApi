@@ -1,12 +1,12 @@
 from flask import Blueprint, request, Response, jsonify
-from attendance.model import Attendance
-from attendance.serializer import AttendanceSerializer
-from app import db, loggger, app
+from .serializer import AttendanceSerializer
+from .model import Attendance
 from Utily.auth import token_required
 
-sm = AttendanceSerializer()
 lists = []
 att = Blueprint('attendace', __name__)
+
+sm = AttendanceSerializer()
 
 
 @att.route('/checkin', methods = ["GET", "POST"])
@@ -29,7 +29,7 @@ def save_employee_attendance():
                 return "Missing parameters"
 
     else:
-        return Response(status = 405), loggger.info("bad request")
+        return Response(status = 405)
     return Response(status = 200)
 
 
@@ -49,7 +49,7 @@ def get_all_attendance():
             print(e)
         return jsonify(result)
     else:
-        return jsonify(app.logger.info("badahdjkajfka hfahadkh"))
+        return jsonify(33)
 
 @att.route("/employee", methods = ["GET", "POST"])
 @token_required
