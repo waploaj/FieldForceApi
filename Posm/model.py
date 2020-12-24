@@ -64,7 +64,7 @@ class Rating_Material(db.Model):
     __tablename__ = "rating_material"
 
     id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Interger, default="", nullable=True)
+    rating = db.Column(db.Integer, default="", nullable=True)
     latitude = db.Column(db.String(255), default="", nullable=True)
     longitude = db.Column(db.String(255), default="", nullable=True)
     image = db.Column(db.String(255), default="", nullable=True)
@@ -73,3 +73,19 @@ class Rating_Material(db.Model):
 
     def __repr__(self):
         return "<Rating_Material(id='%s')>"%(self.id)
+
+class PosAttendance(db.Model):
+    __tablename__ = "pos_attendance"
+
+    id = db.Column(db.Interger, primary_key=True)
+    customer_id = db.Column(db.Integer, default="", nullable=False)
+    employee_id = db.Column(db.Integer, default="", nulllable=False)
+    latitude = db.Column(db.String(255), default="", nullable=False)
+    longitude = db.Column(db.String(255), default="", nullable=False)
+    time = db.Column(db.Datetime, default=datetime.utcnow(), onupdate=datetime.utcnow())
+
+    def __init__(self):
+        self.time = datetime.utcnow()
+
+    def __repr__(self):
+        return "<PostAttendance(id='%s')>"%(self.id)
