@@ -17,7 +17,7 @@ class Userapi(db.Model, UserMixin):
         self.name  = name
         self.token = token
         self.password = generate_password_hash(password)
-        self.registered = registerd
+        self.registered = datetime.utcnow()
 
     def __repr__(self):
         return f"<Person {self.name}>"
