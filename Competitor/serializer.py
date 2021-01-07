@@ -1,5 +1,5 @@
 from app import ma
-from Competitor.model import (Item,
+from .model import (Item,
                               Registration,
                               Item_Registration,
                               Rating,

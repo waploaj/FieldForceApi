@@ -1,7 +1,6 @@
-from app import db, ma
+from app import db
 from datetime import datetime
-from sqlalchemy.orm import relationships
-from sqlalchemy import ForeignKey
+
 
 
 class Item(db.Model):

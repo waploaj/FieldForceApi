@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app import db
-from .model import *
+# from .model import *
 from Utily.auth import token_required
 from .serializer import *
 
