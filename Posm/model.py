@@ -1,19 +1,17 @@
 from app import db
 from datetime import datetime
-from sqlalchemy.orm import relationships
-from sqlalchemy import ForeignKey
 
 class Material(db.Model):
     __tablename__ = "Material"
 
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(255), default="", nulllable=True)
-    batch_no = db.Column(db.String(255), default="", nullable=True)
-    unit = db.Column(db.Integer,default="",nullable=True)
-    deleted = db.Column(db.Integer, default="", nullable=True)
-    free_product = db.Column(db.Integer, default="", nullable=True)
-    posm_item = db.relationships("PosMaterial_Item", backref="material")
-    rate_material = db.relationships("Rating_Material", backref="material")
+    name = db.Column(db.String(255), default="", nulllable=False)
+    batch_no = db.Column(db.String(255), default="", nullable=False)
+    unit = db.Column(db.Integer,default="",nullable=False)
+    deleted = db.Column(db.Integer, default="", nullable=False)
+    free_product = db.Column(db.Integer, default="", nullable=False)
+    posm_item = db.relationship("PosMaterial_Item", backref="material")
+    rate_material = db.relationship("Rating_Material", backref="material")
 
 class PosMaterial(db.Model):
     __tablename__ = 'posmaterial'
@@ -22,7 +20,7 @@ class PosMaterial(db.Model):
     customer_id = db.Column(db.Integer, default="", nullable=False)
     employee_id = db.Column(db.Integer,  nullable=False)
     time = db.Column(db.DATETIME, default=datetime.utcnow, onupdate=datetime.utcnow )
-    posm_item = db.relationships("PostMaterial_Item", backref="postmaterial")
+    posm_item = db.relationship("PostMaterial_Item", backref="postmaterial")
 
     def __init__(self):
         time = self.time = datetime.utcnow()
@@ -54,7 +52,7 @@ class Rating(db.Model):
     employee_id = db.Column(db.Integer, default="", nullable=False)
     time = db.Column(db.DATETIME, default=datetime.utcnow, onupdate=datetime.utcnow )
     deleted = db.Column(db.Interger, default=1, nullable=False)
-    rating_material = relationships("Rating_Material", backref="rate")
+    rating_material = db.relationship("Rating_Material", backref="rate")
 
     def __repr__(self):
         return "<Rating(id='%s')>"%(self.id)

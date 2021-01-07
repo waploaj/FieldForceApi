@@ -1,6 +1,6 @@
 from app import ma
 from marshmallow import ValidationError
-from Posm.model import *
+from .model import Material, PosMaterial, PostMaterial_Item, Rating, Rating_Material
 
 
 class MaterialSerializer ( ma.SQLAlchemyAutoSchema ) :
