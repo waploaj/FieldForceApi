@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
 # import warnings
 # with warnings.catch_warnings():
 #     warnings.simplefilter("ignore")
@@ -12,6 +14,11 @@ app.config.from_object("Config.config")
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+
+migrate = Migrate(app, db)
+manager = Manager(app)
+
+manager.add_command("db", MigrateCommand)
 
 
 db = SQLAlchemy(app)
