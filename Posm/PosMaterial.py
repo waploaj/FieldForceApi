@@ -3,4 +3,4 @@ from Posm.model import Material, PosMaterial, PostMaterial_Item, Rating, Rating_
 
 
 pos = Blueprint("pos", __name__)
-#TODO: Add Business Logic Here!!
+#TODO: Add business logic here!!
