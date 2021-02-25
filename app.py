@@ -28,7 +28,9 @@ with app.app_context():
     from attendance.attendance import attendance
     from Posm.PosMaterial import pos
     from CompetitorI.competitor import comp
+    from Utily.person import utilty
 
     app.register_blueprint(attendance)
     app.register_blueprint(pos)
     app.register_blueprint(comp)
+    app.register_blueprint(utilty)
