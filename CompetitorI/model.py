@@ -59,7 +59,7 @@ class Rating(db.Model):
     employee_id = db.Column(db.Integer)
     time = db.Column(db.DATETIME, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted = db.Column(Integer, default=0, nullable=False)
-    rating_materials = db.relationship("Rating_Item", backref="rate")
+    rating_materials = db.relationship("Rating_Item", backref="ratecomp")
 
     def __repr__(self):
         return "<Rating(id='%s')>" % (self.id)
