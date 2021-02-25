@@ -11,7 +11,7 @@ class Material(db.Model):
     unit = db.Column(db.Integer,default="",nullable=False)
     deleted = db.Column(db.Integer, default="", nullable=False)
     free_product = db.Column(db.Integer, default="", nullable=False)
-    posm_item = db.relationship("PosMaterial_Item", backref="material")
+    posm_item = db.relationship("PostMaterial_Item", backref="material")
     rate_material = db.relationship("Rating_Material", backref="material")
 
 class PosMaterial(db.Model):
@@ -53,7 +53,7 @@ class Rating(db.Model):
     employee_id = db.Column(db.Integer, nullable=False)
     time = db.Column(db.DATETIME, default=datetime.utcnow, onupdate=datetime.utcnow )
     deleted = db.Column(Integer, default=1, nullable=False)
-    rating_material = db.relationship("Rating_Material", backref="rate")
+    rating_material = db.relationship("Rating_Material", backref="rateposm")
 
     def __repr__(self):
         return "<Rating(id='%s')>"%(self.id)
